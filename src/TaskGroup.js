@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import uuidv1 from  'uuid/v1';
 import Input from "./TodoList";
 
+import { withRouter } from "react-router";
+
 const TEST = {
     title: "Task Group 1",
 
@@ -12,7 +14,7 @@ const TEST = {
 
 };
 
-export default class TaskGroup extends Component {
+class TaskGroup extends Component {
     constructor(props){
         super(props);
 
@@ -35,3 +37,6 @@ export default class TaskGroup extends Component {
         );
     }
 }
+
+
+export default withRouter(TaskGroup);

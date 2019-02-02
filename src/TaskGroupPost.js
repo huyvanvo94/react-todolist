@@ -2,6 +2,9 @@
 import React, { Component } from 'react';
 import Group from './Group.svg';
 import logo from "./logo.svg";
+import {  Link, withRouter, Redirect } from "react-router-dom";
+import history from './history'
+
 
 
 const style = {
@@ -39,18 +42,36 @@ const style = {
     }
 };
 
-export default class TaskGroupPost extends Component{
+class TaskGroupPost extends Component{
 
     constructor(props){
         super(props);
 
+        this.state = {
+            toggle: false
+        };
+
+        this.pushToTask = this.pushToTask.bind(this);
+
     }
 
+    pushToTask(){
+
+        this.setState({toggle: true});
+
+
+    }
+
+    test(){
+        return  <Redirect to="/task"/>
+    }
     render() {
+
+        if(this.state.toggle === true){
+            return this.test();
+        }
         return (
-           <div style={style.container} onClick={()=> {
-               console.log("example");
-           }}>
+           <div style={style.container} onClick={this.pushToTask}>
                <div style={style.leftContainer}>
                 <img style={style.group} src={Group} alt="->" />
                </div>
@@ -63,3 +84,6 @@ export default class TaskGroupPost extends Component{
         );
     }
 }
+
+export default withRouter(TaskGroupPost);
+

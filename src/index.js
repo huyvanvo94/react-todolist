@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-
+import history from './history';
 // import components
 import TodoList from './TodoList';
 import TaskGroup from './TaskGroup';
@@ -19,8 +19,10 @@ import { render } from 'react-dom';
 
 
 ReactDOM.render(
-    <Router>
+    <Router history={history}>
+
         <Switch>
+
             <Route exact path = '/' component={TodoList}/>
             <Route path='/task' component={TaskGroup}/>
         </Switch>

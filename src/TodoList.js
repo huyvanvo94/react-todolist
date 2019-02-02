@@ -3,15 +3,7 @@ import Input from './Input';
 import TaskGroupPost from './TaskGroupPost';
 import uuidv1 from  'uuid/v1';
 import './TodoList.css';
-const style = {
-    container: {
 
-        width: "100%"
-
-
-    }
-
-};
 
 export default class TodoList extends Component{
     constructor(props){
