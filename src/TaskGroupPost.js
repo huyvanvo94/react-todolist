@@ -34,7 +34,7 @@ const style = {
         color: "#565e5f"
     },
     group: {
-        marginTop: "155%",
+        marginTop: "100%",
         marginLeft: "20%"
     }
 };
@@ -49,7 +49,7 @@ export default class TaskGroupPost extends Component{
     render() {
         return (
            <div style={style.container} onClick={()=> {
-               console.log("example"); 
+               console.log("example");
            }}>
                <div style={style.leftContainer}>
                 <img style={style.group} src={Group} alt="->" />
