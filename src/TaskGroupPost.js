@@ -67,8 +67,8 @@ class TaskGroupPost extends Component{
     }
     render() {
 
-        if(this.state.toggle === true){
-            return this.test();
+        if(this.state.toggle){
+            return <Redirect to="/task"/>
         }
         return (
            <div style={style.container} onClick={this.pushToTask}>
