@@ -13,6 +13,7 @@ export default class Input extends Component{
 
         this._onChange = this._onChange.bind(this);
         this._onDone = this._onDone.bind(this);
+        this.keyPress = this.keyPress.bind(this);
 
     }
 
@@ -26,12 +27,21 @@ export default class Input extends Component{
         this.setState({value: ""});
     }
 
+    keyPress(event){
+        if(event.key === 'Enter'){
+
+
+            this._onDone();
+
+        }
+    }
+
     render() {
 
         return (
            <div >
 
-               <input className="TextField" onChange={(event) => this._onChange(event.target.value)} type={"text"}/>
+               <input className="TextField" onKeyDown={(event) => this.keyPress(event) } onChange={(event) => this._onChange(event.target.value)} type={"text"}/>
                <button className="Button" onClick={this._onDone}>Add</button>
            </div>
         );
