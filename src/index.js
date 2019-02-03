@@ -8,7 +8,7 @@ import TodoList from './TodoList';
 import TaskGroup from './TaskGroup';
 
 import {
-    BrowserRouter as Router,
+    Router,
     Link,
     Route,
     Switch,
