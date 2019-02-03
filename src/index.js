@@ -4,30 +4,33 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import history from './history';
 // import components
-import TodoList from './TodoList';
+
+import TodoListComponent from './TodoList';
 import TaskGroup from './TaskGroup';
 
 import {
     Router,
-    Link,
-    Route,
     Switch,
+    Route
 } from 'react-router-dom';
 
 import { render } from 'react-dom';
 
+import reducer from './reducers/index';
+import {createStore} from "redux";
+import {Provider} from 'react-redux';
 
+const store = createStore(reducer);
 
 ReactDOM.render(
-    <Router history={history}>
-
-        <Switch >
-
-            <Route exact path = '/' component={TodoList}/>
-            <Route path='/task' component={TaskGroup}/>
-        </Switch>
-
-    </Router>,
+    <Provider store={store}>
+        <Router history={history}>
+            <Switch >
+                <Route exact path = '/' component={TodoListComponent}/>
+                <Route path='/task' component={TaskGroup}/>
+            </Switch>
+        </Router>
+    </Provider>,
     document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

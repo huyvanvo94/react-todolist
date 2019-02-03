@@ -2,28 +2,44 @@ import React, { Component } from 'react';
 import Input from './Input';
 import TaskGroupPost from './TaskGroupPost';
 import uuidv1 from  'uuid/v1';
+import { connect } from "react-redux";
 import './TodoList.css';
 
+import {addTask} from "./actions/tasks.actions";
 
-export default class TodoList extends Component{
+function mapDispatchToProps(dispatch) {
+    return {
+        addTask: (payload) => dispatch(addTask(payload))
+    }
+}
+
+function mapStateToProps(state) {
+
+    return {
+        tasks: state.tasksReducers.tasks
+    }
+}
+
+class TodoList extends Component{
     constructor(props){
         super(props);
 
-        this.state = {
-            tasks: [] || this.props.tasks
-        };
+
 
         this.onDone = this.onDone.bind(this);
 
     }
+
+
 
     onDone(input){
         console.log('TodoList onDone: ' + input);
 
         let task = {title: input, sub: "sub", id: uuidv1()};
 
+        this.props.addTask(task);
 
-        this.setState({tasks: [...this.state.tasks, task]});
+    //    this.setState({tasks: [...this.state.tasks, task]});
 
     }
 
@@ -36,13 +52,27 @@ export default class TodoList extends Component{
             <div className="Container" id={uuidv1()}>
                 <p className="TitleHeader">Things To Do</p>
 
-                <Input onDone={this.onDone}/>
 
+                <Input onDone={this.onDone}/>
                 {
-                    this.state.tasks.map((task) => this.renderTaskGroup(task))
+                    this.props.tasks.map((task) => this.renderTaskGroup(task))
                 }
 
             </div>
         );
     }
 }
+
+/*
+
+
+                <Input onDone={this.onDone}/>
+
+                {
+                    this.props.tasks.map((task) => this.renderTaskGroup(task))
+                }
+ */
+
+const TodoListComponent = connect(mapStateToProps, mapDispatchToProps)(TodoList);
+
+export default TodoListComponent;

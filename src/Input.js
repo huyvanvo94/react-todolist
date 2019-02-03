@@ -28,12 +28,9 @@ export default class Input extends Component{
     }
 
     keyPress(event){
-        if(event.key === 'Enter'){
+        if(event.key !== 'Enter') return;
 
-
-            this._onDone();
-
-        }
+        this._onDone();
     }
 
     render() {

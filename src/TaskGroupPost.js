@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import Group from './Group.svg';
-import logo from "./logo.svg";
 import {  Link, withRouter, Redirect } from "react-router-dom";
 import history from './history'
 
