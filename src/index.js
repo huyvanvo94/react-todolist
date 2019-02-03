@@ -5,9 +5,9 @@ import * as serviceWorker from './serviceWorker';
 import history from './history';
 // import components
 
-import TodoListComponent from './TodoList';
-import TaskGroup from './TaskGroup';
-import TaskGroupComponent from './TaskGroup';
+import TodoListComponent from './components/TodoList';
+import TaskGroup from './components/TaskGroup';
+import TaskGroupComponent from './components/TaskGroup';
 
 import {
     Router,

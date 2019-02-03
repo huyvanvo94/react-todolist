@@ -5,7 +5,7 @@ import uuidv1 from  'uuid/v1';
 import { connect } from "react-redux";
 import './TodoList.css';
 
-import {addTask} from "./actions/tasks.actions";
+import {addTask} from "../actions/tasks.actions";
 
 function mapDispatchToProps(dispatch) {
     return {

@@ -10,7 +10,7 @@ import { withRouter } from "react-router";
 import Completed from './Completed.svg';
 import Incomplete from './Incomplete.svg';
 
-import {toggleCompleted, addTask, deleteTask} from "./actions/group.tasks.actions";
+import {toggleCompleted, addTask, deleteTask} from "../actions/group.tasks.actions";
 import {connect} from "react-redux";
 
 const TEST = {

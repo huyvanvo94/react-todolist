@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import Group from './Group.svg';
 import {  Link, withRouter, Redirect } from "react-router-dom";
-import history from './history'
+import history from '../history'
 
 import uuidv1 from  'uuid/v1';
 
