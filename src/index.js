@@ -7,6 +7,7 @@ import history from './history';
 
 import TodoListComponent from './TodoList';
 import TaskGroup from './TaskGroup';
+import TaskGroupComponent from './TaskGroup';
 
 import {
     Router,
@@ -27,7 +28,7 @@ ReactDOM.render(
         <Router history={history}>
             <Switch >
                 <Route exact path = '/' component={TodoListComponent}/>
-                <Route path='/task' component={TaskGroup}/>
+                <Route path='/task' component={TaskGroupComponent}/>
             </Switch>
         </Router>
     </Provider>,

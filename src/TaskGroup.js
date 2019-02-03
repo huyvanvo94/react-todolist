@@ -10,6 +10,9 @@ import { withRouter } from "react-router";
 import Completed from './Completed.svg';
 import Incomplete from './Incomplete.svg';
 
+import {toggleCompleted, addTask, deleteTask} from "./actions/group.tasks.actions";
+import {connect} from "react-redux";
+
 const TEST = {
     title: "Task Group 1",
 
@@ -57,45 +60,47 @@ const style = {
     }
 };
 
+function mapDispatchToProps(dispatch) {
+    return {
+        addTask: (payload) => dispatch(addTask(payload)),
+        deleteTask: (payload) => dispatch(deleteTask(payload)),
+        toggleCompleted: (payload) => dispatch(toggleCompleted(payload))
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        tasks: state.groupTasksReducers.tasks
+    }
+}
+
 class TaskGroup extends Component {
     constructor(props){
         super(props);
 
 
-        this.state = TEST;
-
-
         this.renderTasks = this.renderTasks.bind(this);
-        this.boxOnTouch = this.boxOnTouch.bind(this);
+        this._toggleCompleted = this._toggleCompleted.bind(this);
 
         this.onDone = this.onDone.bind(this);
-        this.deleteTask = this.deleteTask.bind(this);
+        this._deleteTask = this._deleteTask.bind(this);
     }
 
-    boxOnTouch(id){
+    // ACTION: toggle
+    _toggleCompleted(id){
         console.log(id);
 
-        const tasks = this.state.tasks.slice().map((task) => {
-            if(task.id === id) {
-                task.completed = !task.completed;
-            }
+        this.props.toggleCompleted(id);
 
-            return task;
-        });
 
-        this.setState({tasks: tasks});
     }
 
-    deleteTask(id){
-
-
-        const tasks = this.state.tasks.slice().filter((task) =>{
-            return task.id !== id
-        });
-
-        this.setState({tasks: tasks});
+    // ACTION: delete tasks
+    _deleteTask(id){
+        this.props.deleteTask(id);
     }
 
+    // render to UI
     renderTasks(task){
 
         let src = task.completed === true ? Completed : Incomplete;
@@ -105,7 +110,7 @@ class TaskGroup extends Component {
 
 
             <div style={style.leftContainer}>
-                <img onClick={()=> this.boxOnTouch(task.id)} src={src}/>
+                <img onClick={()=> this._toggleCompleted(task.id)} src={src}/>
             </div>
 
 
@@ -116,7 +121,7 @@ class TaskGroup extends Component {
             </div>
 
                 {
-                    task.completed && <button onClick={() => this.deleteTask(task.id)} style={{position: "absolute", right: "0"}} className="RedButton Button">Delete</button>
+                    task.completed && <button onClick={() => this._deleteTask(task.id)} style={{position: "absolute", right: "0"}} className="RedButton Button">Delete</button>
                 }
 
 
@@ -125,12 +130,11 @@ class TaskGroup extends Component {
 
     }
 
+    // add
     onDone(text) {
         console.log('text: ' + text);
 
-        this.setState( {
-            tasks: [...this.state.tasks, {name: text, id: uuidv1(), completed: false}]
-        });
+        this.props.addTask(  {name: text, id: uuidv1(), completed: false} );
     }
 
     render(){
@@ -138,14 +142,12 @@ class TaskGroup extends Component {
             <div>
                 <div className="Container">
 
-                    <p className="TitleHeader">{this.state.title}</p>
+                    <p className="TitleHeader">Tasks 1</p>
                     <Link to="/"> All Groups </Link>
 
                     <Input onDone={this.onDone}/>
-
-
                     {
-                        this.state.tasks.map((task) => {
+                        this.props.tasks.map((task) => {
                             return this.renderTasks(task);
                         })
                     }
@@ -160,5 +162,9 @@ class TaskGroup extends Component {
     }
 }
 
+//
 
-export default withRouter(TaskGroup);
+
+const TaskGroupComponent = connect(mapStateToProps, mapDispatchToProps)(TaskGroup);
+
+export default TaskGroupComponent;
