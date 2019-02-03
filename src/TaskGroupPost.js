@@ -5,7 +5,7 @@ import logo from "./logo.svg";
 import {  Link, withRouter, Redirect } from "react-router-dom";
 import history from './history'
 
-
+import uuidv1 from  'uuid/v1';
 
 const style = {
     container: {
@@ -71,7 +71,7 @@ class TaskGroupPost extends Component{
             return <Redirect to="/task"/>
         }
         return (
-           <div style={style.container} onClick={this.pushToTask}>
+           <div id={uuidv1()} style={style.container} onClick={this.pushToTask}>
                <div style={style.leftContainer}>
                 <img style={style.group} src={Group} alt="->" />
                </div>

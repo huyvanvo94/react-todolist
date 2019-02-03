@@ -17,3 +17,8 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+.RedButton {
+    background-color: #f44336;
+
+}

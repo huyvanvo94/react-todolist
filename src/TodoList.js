@@ -10,7 +10,7 @@ export default class TodoList extends Component{
         super(props);
 
         this.state = {
-            tasks: [{title: "Example", sub: "hi", id: uuidv1()}] || this.props.tasks
+            tasks: [] || this.props.tasks
         };
 
         this.onDone = this.onDone.bind(this);
@@ -28,12 +28,12 @@ export default class TodoList extends Component{
     }
 
     renderTaskGroup(task){
-        return <TaskGroupPost title={task.title} sub={task.sub} id={task.id}/>
+        return <TaskGroupPost title={task.title} sub={task.sub} id={task.id} key={uuidv1()}/>
     }
 
     render() {
         return (
-            <div className="Container">
+            <div className="Container" id={uuidv1()}>
                 <p className="TitleHeader">Things To Do</p>
 
                 <Input onDone={this.onDone}/>
@@ -41,8 +41,6 @@ export default class TodoList extends Component{
                 {
                     this.state.tasks.map((task) => this.renderTaskGroup(task))
                 }
-
-
 
             </div>
         );

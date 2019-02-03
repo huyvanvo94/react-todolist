@@ -21,7 +21,7 @@ import { render } from 'react-dom';
 ReactDOM.render(
     <Router history={history}>
 
-        <Switch>
+        <Switch >
 
             <Route exact path = '/' component={TodoList}/>
             <Route path='/task' component={TaskGroup}/>
