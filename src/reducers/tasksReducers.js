@@ -1,4 +1,4 @@
-import {ADD_TASK, DELETE_TASK} from "../constants/tasks.constants";
+import {ADD_TASK, DELETE_TASK, DELETE_SUB_TASK, SUB_ADD_TASK, SUB_TOGGLE_COMPLETE} from "../constants/tasks.constants";
 import uuidv1 from  'uuid/v1';
 
 const initialState = {
@@ -7,6 +7,7 @@ const initialState = {
 
 
 function tasksReducers(state=initialState, action) {
+
     switch (action.type) {
         case ADD_TASK:
 

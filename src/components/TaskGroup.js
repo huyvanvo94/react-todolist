@@ -61,15 +61,25 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
+
+    //TODO: filter by id
+    const theTask = state.groupTasksReducers.tasks.filter((task) => {
+        return task.title === KEY
+    })[0];
+
+    const subtasks = theTask.subtasks ;
+
+
     return {
-        tasks: state.groupTasksReducers.tasks
+        id: theTask.id,
+        title: theTask.title,
+        tasks: subtasks //state.groupTasksReducers.tasks
     }
 }
 
 class TaskGroup extends Component {
     constructor(props){
         super(props);
-
 
         this.renderTasks = this.renderTasks.bind(this);
         this._toggleCompleted = this._toggleCompleted.bind(this);
@@ -82,14 +92,14 @@ class TaskGroup extends Component {
     _toggleCompleted(id){
         console.log(id);
 
-        this.props.toggleCompleted(id);
+        this.props.toggleCompleted({id: this.props.id, subtask_id: id});
 
 
     }
 
     // ACTION: delete tasks
     _deleteTask(id){
-        this.props.deleteTask(id);
+        this.props.deleteTask({id: this.props.id, subtask_id: id});
     }
 
     // render to UI
@@ -124,9 +134,9 @@ class TaskGroup extends Component {
 
     // add
     onDone(text) {
-        console.log('text: ' + text);
+        let subtask = {name: text, id: uuidv1(), completed: false};
 
-        this.props.addTask(  {name: text, id: uuidv1(), completed: false} );
+        this.props.addTask(  {id: this.props.id, subtask: subtask} );
     }
 
     render(){
@@ -134,7 +144,7 @@ class TaskGroup extends Component {
             <div>
                 <div className="Container">
 
-                    <p className="TitleHeader">Tasks 1</p>
+                    <p className="TitleHeader">{this.props.title}</p>
                     <Link to="/"> All Groups </Link>
 
                     <Input onDone={this.onDone}/>
@@ -143,10 +153,6 @@ class TaskGroup extends Component {
                             return this.renderTasks(task);
                         })
                     }
-
-
-
-
 
                 </div>
             </div>
