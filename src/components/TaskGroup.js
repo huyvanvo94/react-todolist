@@ -114,10 +114,10 @@ class TaskGroup extends Component {
     }
 
     // ACTION: toggle
-    _toggleCompleted(id){
+    _toggleCompleted(id, completed){
         console.log(id);
 
-        this.props.toggleCompleted({id: this.props.id, subtask_id: id});
+        this.props.toggleCompleted({id: this.props.id, subtask_id: id, completed: completed});
 
 
     }
@@ -137,7 +137,7 @@ class TaskGroup extends Component {
 
 
             <div style={style.leftContainer}>
-                <img onClick={()=> this._toggleCompleted(task.id)} src={src}/>
+                <img onClick={()=> this._toggleCompleted(task.id, !task.completed)} src={src}/>
             </div>
 
 

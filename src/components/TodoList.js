@@ -16,6 +16,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
     const newTasks = state.tasksReducers.tasks.slice();
 
+    /*
     const _task = state.groupTasksReducers.tasks.slice();
 
     newTasks.map((task) => {
@@ -39,7 +40,7 @@ function mapStateToProps(state) {
         task.sub = `\t${count} tasks completed`;
 
         return task;
-    });
+    });*/
 
     return {
         tasks: newTasks//state.tasksReducers.tasks
@@ -60,12 +61,12 @@ class TodoList extends Component{
 
 
     onDone(input){
-        let task = {title: input, sub: "None completed", id: uuidv1(), subtasks: [], canDelete: true};
+        let task = {title: input, sub: "None completed", id: uuidv1(), subtasks: [], canDelete: true, count: 0};
         this.props.addTask(task);
     }
 
     renderTaskGroup(task){
-        return <TaskGroupPost onDelete={this.onDelete} canDelete={task.canDelete} title={task.title} sub={task.sub} id={task.id} key={uuidv1()} subtasks={task.subtasks}/>
+        return <TaskGroupPost onDelete={this.onDelete} count={task.count} canDelete={task.canDelete} title={task.title} sub={task.sub} id={task.id} key={uuidv1()} subtasks={task.subtasks}/>
     }
 
     render() {

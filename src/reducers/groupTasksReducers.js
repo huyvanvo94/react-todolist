@@ -3,7 +3,6 @@ import {G_TOGGLE_COMPLETED, G_DELETE_TASK, G_ADD_TASK} from "../constants/group.
 import {ADD_TASK, DELETE_TASK} from "../constants/tasks.constants";
 
 const initialState = {
-
     tasks: [
 
     ]
@@ -46,7 +45,7 @@ export default function groupTasksReducers(state=initialState, action) {
                     if(task.id === action.payload.id) {
                         task.subtasks = task.subtasks.slice().map((task) => {
                             if(task.id === action.payload.subtask_id) {
-                                task.completed = !task.completed;
+                                task.completed = action.payload.completed;
                             }
 
                             return task;

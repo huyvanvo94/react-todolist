@@ -91,7 +91,7 @@ class TaskGroupPost extends Component{
 
                <div style={style.rightContainer} onClick={this.pushToTask}>
                 <p style={style.title}>{this.props.title}</p>
-                <p style={style.sub}>{this.props.sub}</p>
+                <p style={style.sub}>{`${this.props.count} completed`}</p>
                </div>
 
                {
