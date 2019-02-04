@@ -3,9 +3,9 @@ import uuidv1 from  'uuid/v1';
 
 import Input from "./Input";
 import {
-    Link
+    Link, Redirect
 } from 'react-router-dom';
-import { withRouter } from "react-router";
+
 
 import Completed from './Completed.svg';
 import Incomplete from './Incomplete.svg';
@@ -67,10 +67,12 @@ function mapStateToProps(state) {
         return task.title === KEY
     })[0];
 
+    console.log(theTask===undefined);
+
     const subtasks = theTask.subtasks ;
 
-
     return {
+        error: theTask===undefined,
         id: theTask.id,
         title: theTask.title,
         tasks: subtasks //state.groupTasksReducers.tasks
@@ -162,7 +164,17 @@ class TaskGroup extends Component {
 
 //
 
+function TaskGroupComponent(props) {
+    return (
+        props.error === false ?
+            <TaskGroup props={props}/> :
+            <div>
+                <Redirect to='/' />
+            </div>
+    );
+}
 
-const TaskGroupComponent = connect(mapStateToProps, mapDispatchToProps)(TaskGroup);
+
+// const TaskGroupComponent = connect(mapStateToProps, mapDispatchToProps)(TaskGroup);
 
 export default TaskGroupComponent;
