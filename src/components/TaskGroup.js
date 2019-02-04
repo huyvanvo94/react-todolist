@@ -185,19 +185,18 @@ class TaskGroup extends Component {
     }
 }
 
-/*
 
 function TaskGroupComponent(props) {
-    return (
-        props.error === false ?
-            <TaskGroup  id={props.id} title={props.title} tasks={props.tasks}/> :
-            <div>
-                <Redirect to='/' />
-            </div>
-    );
-} */
 
-// export default connect(mapStateToProps, mapDispatchToProps)(TaskGroupComponent);
-export default connect(mapStateToProps, mapDispatchToProps)(TaskGroup);
+    if(props.id===undefined){
+        return <Redirect to='/'/>
+    }
+    return (
+        <TaskGroup  id={props.id} title={props.title} tasks={props.tasks}/>
+    );
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskGroupComponent);
+//export default connect(mapStateToProps, mapDispatchToProps)(TaskGroup);
 
 
