@@ -15,8 +15,6 @@ import {
     Route
 } from 'react-router-dom';
 
-import { render } from 'react-dom';
-
 import reducer from './reducers/index';
 import {createStore} from "redux";
 import {Provider} from 'react-redux';

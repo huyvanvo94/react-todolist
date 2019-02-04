@@ -95,7 +95,7 @@ class TaskGroupPost extends Component{
                </div>
 
                {
-                   this.props.subtasks.length === 0 &&
+                   this.props.canDelete &&
                    <button onClick={this._delete} style={style.deleteButton} className="RedButton Button">Delete</button>
                }
            </div>

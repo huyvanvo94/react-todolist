@@ -30,6 +30,8 @@ function mapStateToProps(state) {
 
         const st = t[0];
 
+        task.canDelete = (st.subtasks.length === 0);
+
         let count = st.subtasks.filter((atask) => {
             return atask.completed === true;
         }).length;
@@ -58,12 +60,12 @@ class TodoList extends Component{
 
 
     onDone(input){
-        let task = {title: input, sub: "None completed", id: uuidv1(), subtasks: []};
+        let task = {title: input, sub: "None completed", id: uuidv1(), subtasks: [], canDelete: true};
         this.props.addTask(task);
     }
 
     renderTaskGroup(task){
-        return <TaskGroupPost onDelete={this.onDelete} title={task.title} sub={task.sub} id={task.id} key={uuidv1()} subtasks={task.subtasks}/>
+        return <TaskGroupPost onDelete={this.onDelete} canDelete={task.canDelete} title={task.title} sub={task.sub} id={task.id} key={uuidv1()} subtasks={task.subtasks}/>
     }
 
     render() {
