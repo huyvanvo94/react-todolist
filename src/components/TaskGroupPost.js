@@ -1,8 +1,8 @@
 
 import React, { Component } from 'react';
 import Group from './Group.svg';
-import {  Link, withRouter, Redirect } from "react-router-dom";
-import history from '../history'
+import {  Redirect } from "react-router-dom";
+
 
 import uuidv1 from  'uuid/v1';
 
@@ -33,12 +33,17 @@ const style = {
         fontWeight: "bold"
     },
     sub: {
-        color: "#565e5f"
+        color: "#565e5f", width: "100%"
     },
     group: {
         marginTop: "100%",
         marginLeft: "20%"
-    }, deleteButton: {position: "absolute", right:10, marginTop: "20px" }
+    },
+    deleteButton: {
+        position: "absolute",
+        right:10,
+        marginTop: "20px"
+    }
 };
 
 class TaskGroupPost extends Component{
@@ -56,9 +61,6 @@ class TaskGroupPost extends Component{
     }
 
     _delete(){
-        console.log('hello');
-
-
         this.props.onDelete(this.props.id);
 
     }
@@ -77,7 +79,9 @@ class TaskGroupPost extends Component{
     render() {
 
         if(this.state.toggle){
-            return <Redirect to="/task"/>
+            const url = `/task?id=${this.props.id}`;
+
+            return <Redirect to={url}/>
         }
         return (
            <div id={uuidv1()} style={style.container} >
@@ -91,12 +95,13 @@ class TaskGroupPost extends Component{
                </div>
 
                {
-                   this.props.subtasks.length === 0 && <button onClick={this._delete} style={style.deleteButton} className="RedButton Button">Delete</button>
+                   this.props.subtasks.length === 0 &&
+                   <button onClick={this._delete} style={style.deleteButton} className="RedButton Button">Delete</button>
                }
            </div>
         );
     }
 }
 
-export default withRouter(TaskGroupPost);
+export default TaskGroupPost;
 

@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 
+
 import Completed from './Completed.svg';
 import Incomplete from './Incomplete.svg';
 
@@ -52,6 +53,22 @@ const style = {
     }
 };
 
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+function getUrlParam(parameter, defaultvalue){
+    var urlparameter = defaultvalue;
+    if(window.location.href.indexOf(parameter) > -1){
+        urlparameter = getUrlVars()[parameter];
+    }
+    return urlparameter;
+}
+
 function mapDispatchToProps(dispatch) {
     return {
         addTask: (payload) => dispatch(addTask(payload)),
@@ -62,20 +79,26 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
 
-    //TODO: filter by id
-    const theTask = state.groupTasksReducers.tasks.filter((task) => {
-        return task.title === KEY
-    })[0];
+    let id = getUrlParam('id', -1);
 
-    console.log(theTask===undefined);
+    const tasks = state.groupTasksReducers.tasks.filter((task) => {
+        return task.id === id
+    });
 
+    if(tasks.length === 0) {
+        return {
+            error: true
+        }
+    }
+
+    const theTask = tasks[0];
     const subtasks = theTask.subtasks ;
 
     return {
-        error: theTask===undefined,
+        error: false,
         id: theTask.id,
         title: theTask.title,
-        tasks: subtasks //state.groupTasksReducers.tasks
+        tasks: subtasks
     }
 }
 
@@ -162,19 +185,19 @@ class TaskGroup extends Component {
     }
 }
 
-//
+/*
 
 function TaskGroupComponent(props) {
     return (
         props.error === false ?
-            <TaskGroup props={props}/> :
+            <TaskGroup  id={props.id} title={props.title} tasks={props.tasks}/> :
             <div>
                 <Redirect to='/' />
             </div>
     );
-}
+} */
+
+// export default connect(mapStateToProps, mapDispatchToProps)(TaskGroupComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskGroup);
 
 
-// const TaskGroupComponent = connect(mapStateToProps, mapDispatchToProps)(TaskGroup);
-
-export default TaskGroupComponent;
