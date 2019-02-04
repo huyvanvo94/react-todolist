@@ -13,15 +13,7 @@ import Incomplete from './Incomplete.svg';
 import {toggleCompleted, addTask, deleteTask} from "../actions/group.tasks.actions";
 import {connect} from "react-redux";
 
-const TEST = {
-    title: "Task Group 1",
-
-    tasks: [
-        {name: "Task 1", completed: false, id: uuidv1()},
-        {name: "Task 2", completed: true, id: uuidv1()}
-    ]
-
-};
+const KEY = 'hello';
 
 const style = {
     container: {

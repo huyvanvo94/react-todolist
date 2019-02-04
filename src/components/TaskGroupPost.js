@@ -38,7 +38,7 @@ const style = {
     group: {
         marginTop: "100%",
         marginLeft: "20%"
-    }
+    }, deleteButton: {position: "absolute", right:10, marginTop: "20px" }
 };
 
 class TaskGroupPost extends Component{
@@ -51,6 +51,15 @@ class TaskGroupPost extends Component{
         };
 
         this.pushToTask = this.pushToTask.bind(this);
+        this._delete = this._delete.bind(this);
+
+    }
+
+    _delete(){
+        console.log('hello');
+
+
+        this.props.onDelete(this.props.id);
 
     }
 
@@ -58,27 +67,32 @@ class TaskGroupPost extends Component{
 
         this.setState({toggle: true});
 
-
     }
 
     test(){
-        return  <Redirect to="/task"/>
+        return <Redirect to="/task"/>
     }
+
+
     render() {
 
         if(this.state.toggle){
             return <Redirect to="/task"/>
         }
         return (
-           <div id={uuidv1()} style={style.container} onClick={this.pushToTask}>
-               <div style={style.leftContainer}>
+           <div id={uuidv1()} style={style.container} >
+               <div style={style.leftContainer} onClick={this.pushToTask}>
                 <img style={style.group} src={Group} alt="->" />
                </div>
 
-               <div style={style.rightContainer}>
+               <div style={style.rightContainer} onClick={this.pushToTask}>
                 <p style={style.title}>{this.props.title}</p>
                 <p style={style.sub}>{this.props.sub}</p>
                </div>
+
+               {
+                   this.props.subtasks.length === 0 && <button onClick={this._delete} style={style.deleteButton} className="RedButton Button">Delete</button>
+               }
            </div>
         );
     }

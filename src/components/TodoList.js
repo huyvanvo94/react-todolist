@@ -5,11 +5,12 @@ import uuidv1 from  'uuid/v1';
 import { connect } from "react-redux";
 import './TodoList.css';
 
-import {addTask} from "../actions/tasks.actions";
+import {addTask, deleteTask} from "../actions/tasks.actions";
 
 function mapDispatchToProps(dispatch) {
     return {
-        addTask: (payload) => dispatch(addTask(payload))
+        addTask: (payload) => dispatch(addTask(payload)),
+        deleteTask: (payload) => dispatch(deleteTask(payload))
     }
 }
 
@@ -28,23 +29,22 @@ class TodoList extends Component{
 
         this.onDone = this.onDone.bind(this);
 
+        this.onDelete = this.onDelete.bind(this);
     }
 
+    onDelete(id){
+        this.props.deleteTask(id);
+    }
 
 
     onDone(input){
-        console.log('TodoList onDone: ' + input);
-
-        let task = {title: input, sub: "sub", id: uuidv1()};
+        let task = {title: input, sub: "N/A", id: uuidv1(), subtasks: []};
 
         this.props.addTask(task);
-
-    //    this.setState({tasks: [...this.state.tasks, task]});
-
     }
 
     renderTaskGroup(task){
-        return <TaskGroupPost title={task.title} sub={task.sub} id={task.id} key={uuidv1()}/>
+        return <TaskGroupPost onDelete={this.onDelete} title={task.title} sub={task.sub} id={task.id} key={uuidv1()} subtasks={task.subtasks}/>
     }
 
     render() {

@@ -1,4 +1,4 @@
-import {ADD_TASK} from "../constants/tasks.constants";
+import {ADD_TASK, DELETE_TASK} from "../constants/tasks.constants";
 import uuidv1 from  'uuid/v1';
 
 const initialState = {
@@ -12,6 +12,14 @@ function tasksReducers(state=initialState, action) {
 
             return {
                tasks: [...state.tasks, action.payload]
+            };
+
+        case DELETE_TASK:
+
+            return {
+                tasks: state.tasks.slice(0).filter((task) => {
+                    return task.id !== action.payload
+                })
             };
 
 
