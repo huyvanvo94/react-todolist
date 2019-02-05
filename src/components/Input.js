@@ -23,8 +23,13 @@ export default class Input extends Component{
     }
 
     _onDone(){
+
+        if (this.state.value === null || this.state.value === ''){
+            return;
+        }
+
         this.props.onDone(this.state.value);
-        this.setState({value: ""});
+
     }
 
     keyPress(event){
